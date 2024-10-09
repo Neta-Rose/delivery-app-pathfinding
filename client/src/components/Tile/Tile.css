@@ -1,0 +1,47 @@
+.point {
+    height: 3rex;
+    width: 3rex;
+}
+
+.empty:hover {
+    background-color: rgb(211, 217, 219);
+    transition: background-color 100ms linear;
+}
+
+.empty:active, .wall:active {
+    background-color: rgb(48, 48, 48);
+}
+
+.user {
+    background-color: rgb(111, 167, 111);
+}
+
+.restaurant {
+    background-color: rgb(175, 175, 255);
+}
+
+.selected-restaurant {
+    background-color: rgb(73, 73, 248);
+}
+
+.deliveryMan {
+    background-color: rgb(255, 169, 169);
+}
+
+.wall {
+    background-color: rgb(75, 75, 75);
+}
+
+.visited {
+    background-color: rgb(163, 72, 248);
+    -webkit-transition: background-color 500ms linear;
+    -ms-transition: background-color 500ms linear;
+    transition: background-color 100ms linear;
+}
+
+.path {
+    background-color: rgb(101, 190, 218);
+    -webkit-transition: background-color 500ms linear;
+    -ms-transition: background-color 500ms linear;
+    transition: background-color 100ms linear;
+}

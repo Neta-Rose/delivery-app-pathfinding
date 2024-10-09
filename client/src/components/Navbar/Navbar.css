@@ -1,0 +1,28 @@
+.navbar {
+    border-bottom: 2px solid rgba(0, 123, 255, 0.2); /* Light border at the bottom */
+}
+
+.nav-link {
+    position: relative;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    padding: 10px 15px; /* Increased padding for better touch area */
+    border-radius: 5px; /* Rounded corners for links */
+}
+
+.nav-link:hover {
+    background-color: rgba(0, 123, 255, 0.1); /* Light hover background */
+    color: #007bff; /* Change to primary color on hover */
+}
+
+.active {
+    background-color: rgba(0, 123, 255, 0.2); /* Active link background */
+    color: #0056b3; /* Darker color for active state */
+}
+
+.navbar-toggler {
+    border: none; /* Remove default border */
+}
+
+.navbar-toggler-icon {
+    background-color: #007bff; /* Change color of the toggler icon */
+}

@@ -1,0 +1,43 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align the grid */
+}
+
+.grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2px; /* Space between rows */
+}
+
+.grid-row {
+    display: flex;
+    justify-content: center; /* Center align tiles in each row */
+    gap: 2px; /* Space between tiles */
+}
+
+.tile {
+    width: 50px; /* Width of each tile */
+    height: 50px; /* Height of each tile */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #007bff; /* Border color for tiles */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #f8f9fa; /* Background color */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.tile:hover {
+    background-color: rgba(0, 123, 255, 0.1); /* Light hover background */
+    transform: translateY(-2px); /* Lift effect on hover */
+}
+
+.tile.selected {
+    background-color: rgba(0, 123, 255, 0.2); /* Selected tile background */
+}
+
+.tile.wall {
+    background-color: #dc3545; /* Color for wall tiles */
+}

@@ -1,0 +1,7 @@
+body {
+  font-family: "heebo";
+  background-image: url("./assets/background.jpg");
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+}
