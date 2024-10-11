@@ -4,14 +4,13 @@ import { AlgorithmName } from "../entities/algorithms";
 import { Grid, RestaurantApi, Tile } from "../entities/grid";
 import { Node } from "../entities/node";
 import { Item } from "../entities/typeORM/Item.entity";
-import { astar } from "./algorithms/astar";
-import { dijkstra } from "./algorithms/dijkstra";
 import { Order } from "../entities/typeORM/Order.entity";
 import { myDataSource } from "../connection/data-source";
 import { Restaurant } from "../entities/typeORM/Restaurant.entity";
 import logger from "../logger/logger";
 import { getRestaurantById } from "./restaurant.service";
 import { getDeliveryManById } from "./deliveryMan.service";
+import { astar, dijkstra } from "./algorithms";
 
 const orderRepository: Repository<Order> = myDataSource.getRepository(Order);
 
