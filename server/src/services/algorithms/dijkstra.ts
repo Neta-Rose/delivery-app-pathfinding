@@ -16,6 +16,7 @@ export function dijkstra(nodeArray: Node[][], start: Node, goals: Node[]):
   const visitedNodes: [number, number][] = [];
 
   const encodePoint = (p: [number, number]): string => `${p[0]},${p[1]}`;
+  const skippingDeliveryMans: boolean = goalNodes[0].user !== undefined;
 
   while (minHeap.length > 0) {
     minHeap.sort((a, b) => (a.cost ?? Infinity) - (b.cost ?? Infinity));
@@ -23,15 +24,14 @@ export function dijkstra(nodeArray: Node[][], start: Node, goals: Node[]):
     const [currentRow, currentCol] = current.point;
     visitedNodes.push(current.point);
 
-    let toBreake: boolean = false;
     goalNodes.forEach((goalNode) => {
       if (encodePoint(current.point) === encodePoint(goalNode.point)) {
-        toBreake = true;
         finalNode = goalNode;
       }
     })
 
-    if(toBreake) break;
+    if(finalNode) break;
+
 
     for (const [dr, dc] of directions) {
       const nextRow = currentRow + dr;
@@ -39,6 +39,7 @@ export function dijkstra(nodeArray: Node[][], start: Node, goals: Node[]):
       if (nextRow >= 0 && nextRow < rows && nextCol >= 0 && nextCol < cols) {
         const nextNode = nodeArray[nextRow][nextCol];
         if (!nextNode.isWall && nextNode.restaurant === undefined) {
+          if(skippingDeliveryMans && nextNode.deliveryMan) break; 
           const newCost = (current.cost ?? 0) + 1;
           if (newCost < (nextNode.cost ?? Infinity)) {
             nextNode.cost = newCost;

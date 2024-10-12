@@ -94,6 +94,10 @@ const createGraph = (grid: Grid, restaurant: RestaurantApi, destination: Destina
             if(grid[i][j].restaurant) {
                 graph[i][j].restaurant = grid[i][j].restaurant;
             }
+
+            if(grid[i][j].deliveryMan) {
+                graph[i][j].deliveryMan = grid[i][j].deliveryMan;
+            }
         }
     }
 

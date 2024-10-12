@@ -13,6 +13,8 @@ export function astar(nodeArray: Node[][], start: Node, goal: Node):
   const predecessors: Map<string, [number, number] | null> = new Map();
   const visitedNodes: [number, number][] = [];
 
+  const skippingDeliveryMans: boolean = goal.user !== undefined;
+
   const encodePoint = (p: [number, number]): string => `${p[0]},${p[1]}`;
 
   while (openHeap.length > 0) {
@@ -29,6 +31,7 @@ export function astar(nodeArray: Node[][], start: Node, goal: Node):
       if (nextRow >= 0 && nextRow < rows && nextCol >= 0 && nextCol < cols) {
         const nextNode = nodeArray[nextRow][nextCol];
         if (!nextNode.isWall && nextNode.restaurant === undefined) {
+          if(skippingDeliveryMans && nextNode.deliveryMan !== undefined) break;
           const newG = (current.g ?? 0) + 1;
           if (newG < (nextNode.g ?? Infinity)) {
             nextNode.g = newG;
