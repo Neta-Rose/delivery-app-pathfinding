@@ -29,8 +29,13 @@ export const Menu: FC<MenuProps> = ({ selectedAlgorithm }) => {
 
         if(grid && selectedRestaurant && orderItems) {
             placeOrderHelper(
-                grid, changeGrid, selectedRestaurant, orderItems, selectedAlgorithm, setSelectedDeliveryMan
-            )
+                grid, 
+                changeGrid, 
+                selectedRestaurant, 
+                orderItems, 
+                selectedAlgorithm, 
+                setSelectedDeliveryMan
+            );
         }
     }
 
@@ -40,13 +45,7 @@ export const Menu: FC<MenuProps> = ({ selectedAlgorithm }) => {
     }
     
     useEffect(() => {  
-        try {
-            if(selectedRestaurant)
-                fetchMenu(selectedRestaurant!.id)
-        } catch(error) {
-            console.log(error);
-        }
-        
+        if(selectedRestaurant) fetchMenu(selectedRestaurant!.id);
         changeOrderItems([]);
     }, [selectedRestaurant]);
 
@@ -90,3 +89,5 @@ export const Menu: FC<MenuProps> = ({ selectedAlgorithm }) => {
         </div>
     );
 };
+
+

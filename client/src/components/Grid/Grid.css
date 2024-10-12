@@ -1,43 +1,43 @@
 .container {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center align the grid */
+    align-items: center;
 }
 
 .grid {
     display: flex;
     flex-direction: column;
-    gap: 2px; /* Space between rows */
+    gap: 2px;
 }
 
 .grid-row {
     display: flex;
-    justify-content: center; /* Center align tiles in each row */
-    gap: 2px; /* Space between tiles */
+    justify-content: center; 
+    gap: 2px; 
 }
 
 .tile {
-    width: 50px; /* Width of each tile */
-    height: 50px; /* Height of each tile */
+    width: 50px; 
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 3px solid #007bff; /* Border color for tiles */
-    border-radius: 5px; /* Rounded corners */
-    background-color: #f8f9fa; /* Background color */
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
-    cursor: pointer; /* Pointer cursor on hover */
+    border: 3px solid #007bff;
+    border-radius: 5px; 
+    background-color: #f8f9fa; 
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
 }
 
 .tile:hover {
-    background-color: rgba(0, 123, 255, 0.1); /* Light hover background */
-    transform: translateY(-2px); /* Lift effect on hover */
+    background-color: rgba(0, 123, 255, 0.1);
+    transform: translateY(-2px); 
 }
 
 .tile.selected {
-    background-color: rgba(0, 123, 255, 0.2); /* Selected tile background */
+    background-color: rgba(0, 123, 255, 0.2);
 }
 
 .tile.wall {
-    background-color: #dc3545; /* Color for wall tiles */
+    background-color: #dc3545;
 }

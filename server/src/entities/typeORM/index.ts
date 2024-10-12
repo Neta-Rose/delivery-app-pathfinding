@@ -1,0 +1,7 @@
+export * from "./Customer.entity"
+export * from "./DeliveryMan.entity"
+export * from "./Item.entity"
+export * from "./Menu.entity"
+export * from "./Order.entity"
+export * from "./Restaurant.entity"
+export * from "./Person.entity"

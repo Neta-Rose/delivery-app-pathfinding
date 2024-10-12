@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { placeOrder, getAllOrders } from "../services/order.service";
-import { AlgorithmName } from "../entities/algorithms";
+import { AlgorithmName } from "../emuns/algorithms";
 
 const getAllOrdersHandler = async (
   req: Request,
