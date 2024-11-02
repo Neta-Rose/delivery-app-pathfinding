@@ -1,5 +1,4 @@
 import { DeliveryManApi, RestaurantApi, PersonApi } from "./api";
-// import { Restaurant } from "./restaurant";
 
 interface Point {
     restaurant?: RestaurantApi;

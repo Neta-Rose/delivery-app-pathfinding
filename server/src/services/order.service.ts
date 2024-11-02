@@ -1,17 +1,15 @@
 import { Repository } from "typeorm";
 import { Destination } from "../emuns/destination.enum";
-import { AlgorithmName } from "../entities/algorithms";
+import { AlgorithmName } from "../emuns/algorithms";
 import { Grid, RestaurantApi, Tile } from "../entities/grid";
 import { Node } from "../entities/node";
-import { Item } from "../entities/typeORM/Item.entity";
-import { astar } from "./algorithms/astar";
-import { dijkstra } from "./algorithms/dijkstra";
-import { Order } from "../entities/typeORM/Order.entity";
 import { myDataSource } from "../connection/data-source";
 import { Restaurant } from "../entities/typeORM/Restaurant.entity";
 import logger from "../logger/logger";
 import { getRestaurantById } from "./restaurant.service";
 import { getDeliveryManById } from "./deliveryMan.service";
+import { astar, dijkstra } from "./algorithms";
+import { Item, Order } from "../entities/typeORM";
 
 const orderRepository: Repository<Order> = myDataSource.getRepository(Order);
 
@@ -57,7 +55,6 @@ const placeOrder = async (
 
     let sum = 0;
     orderItems.forEach((orderItems) => sum = sum + orderItems.amount * orderItems.item.price);
-    console.log(userPath)
     const newOrder: Order = new Order();
     newOrder.date = (new Date()).toISOString();
     newOrder.price = sum;
@@ -96,6 +93,10 @@ const createGraph = (grid: Grid, restaurant: RestaurantApi, destination: Destina
 
             if(grid[i][j].restaurant) {
                 graph[i][j].restaurant = grid[i][j].restaurant;
+            }
+
+            if(grid[i][j].deliveryMan) {
+                graph[i][j].deliveryMan = grid[i][j].deliveryMan;
             }
         }
     }

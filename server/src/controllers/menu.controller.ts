@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { getMenuByRestaurantId } from "../services/menu.service";
-import { getAllDeliveryMans } from "../services/deliveryMan.service";
 
 const getMenuByRestaurantIdHandler = async (
   req: Request,

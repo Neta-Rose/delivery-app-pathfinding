@@ -3,7 +3,7 @@ import { GridInterface, Point } from "../types/grid";
 import { CustomerApi, DeliveryManApi, RestaurantApi } from "../types/api";
 import { itemDetailsInterface } from "../types/order";
 import { pathResponse } from "../types/response";
-import { AlgorithmName } from "../types/algorithms";
+import { AlgorithmName, VisualizationSpeeds } from "../types/algorithms";
 
 export const placeOrderHelper = async (
     grid: GridInterface,
@@ -12,6 +12,7 @@ export const placeOrderHelper = async (
     orderItems: itemDetailsInterface[],
     selectedAlgorithm: AlgorithmName,
     setSelectedDeliveryMan: (value: React.SetStateAction<Point | null>) => void,
+    visualizationSpeed: string,
 ) => {
     const response: pathResponse = await api.order().placeOrder(
         grid, 
@@ -25,24 +26,27 @@ export const placeOrderHelper = async (
         return;
     }
 
+    const speedConst = VisualizationSpeeds[visualizationSpeed as keyof typeof VisualizationSpeeds]
+    console.log(speedConst)
+
     for(let index = 0; index < response.deliveryVisited.length; index++) {
-        await sleep(10);
+        await sleep(speedConst.visitedSpeed);
         const newGrid: GridInterface = structuredClone(grid!);
         grid![response.deliveryVisited[index][0]][response.deliveryVisited[index][1]].isVisited = true;
         changeGrid(newGrid);
     }
 
-    await sleep(30);
+    await sleep(100);
 
     for(let index = 0; index < response.deliveryPath.length; index++) {
-        await sleep(70);
+        await sleep(speedConst.pathSpeed);
         const newGrid: GridInterface = structuredClone(grid!);
         grid![response.deliveryPath[index][0]][response.deliveryPath[index][1]].isPath = true;
         changeGrid(newGrid);
     }
 
     setSelectedDeliveryMan(grid[response.deliveryMan[0]][response.deliveryMan[1]])
-    await sleep(30);
+    await sleep(100);
 
     const newGrid: GridInterface = structuredClone(grid!);
     for(let index = 0; index < response.deliveryVisited.length; index++) {
@@ -51,16 +55,16 @@ export const placeOrderHelper = async (
     changeGrid(newGrid);
 
     for(let index = 0; index < response.userVisited.length; index++) {
-        await sleep(10);
+        await sleep(speedConst.visitedSpeed);
         const newGrid2: GridInterface = structuredClone(grid!);
         grid![response.userVisited[index][0]][response.userVisited[index][1]].isVisited = true;
         changeGrid(newGrid2);
     }
 
-    await sleep(30);
+    await sleep(100);
 
     for(let index = 0; index < response.userPath.length; index++) {
-        await sleep(70);
+        await sleep(speedConst.pathSpeed);
         const newGrid: GridInterface = structuredClone(grid!);
         grid![response.userPath[index][0]][response.userPath[index][1]].isPath = true;
         changeGrid(newGrid);
@@ -71,7 +75,7 @@ export const placeOrderHelper = async (
     response.deliveryPath.reverse();
 
     for(let index = 0; index < response.deliveryPath.length - 1; index++) {
-        await sleep(200);
+        await sleep(speedConst.deliveryManSpeed);
         const newGrid: GridInterface = structuredClone(grid!);
         grid![response.deliveryPath[index + 1][0]][response.deliveryPath[index + 1][1]].deliveryMan = 
             grid![response.deliveryPath[index][0]][response.deliveryPath[index][1]].deliveryMan;
@@ -80,7 +84,7 @@ export const placeOrderHelper = async (
     }
 
     for(let index = 0; index < response.userPath.length - 1; index++) {
-        await sleep(200);
+        await sleep(speedConst.deliveryManSpeed);
         const newGrid: GridInterface = structuredClone(grid!);
         grid![response.userPath[index + 1][0]][response.userPath[index + 1][1]].deliveryMan = 
             grid![response.userPath[index][0]][response.userPath[index][1]].deliveryMan;
@@ -142,4 +146,3 @@ export const createGrid = () => {
 };
 
 export const sleep = (miliseconds: number) => new Promise((res) => setTimeout(res, miliseconds));
-
