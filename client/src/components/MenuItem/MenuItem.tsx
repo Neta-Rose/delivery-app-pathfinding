@@ -30,16 +30,16 @@ export const MenuItem: FC<MenuItemProps> = ({ item }) => {
         <div className="d-flex flex-column">
             <div className="d-flex flex-row justify-content-between">
                 <div className="d-flex flex-column">
+                    <h4>{item.name}</h4>
+                    <p className="mr-auto" style={styles.description}>{item.description}</p>
+                </div>
+                <div className="d-flex flex-column">
                     <span>{item.price}$</span>
                     {showingDetails ? 
                     <i className="bi bi-chevron-up" onClick={() => setShowingDetails(!showingDetails)}></i>
                     :
                     <i className="bi bi-chevron-down" onClick={() => setShowingDetails(!showingDetails)}></i>}
                     
-                </div>
-                <div className="d-flex flex-column">
-                    <h4>{item.name}</h4>
-                    <p className="mr-auto" style={styles.description}>{item.description}</p>
                 </div>
             </div>
             {showingDetails && 
@@ -73,14 +73,14 @@ const styles = {
         width: '2rem',
         height: '2rem',
         text: 'center',
-        marginLeft: '1rem'
+        marginRight: '1rem'
     },
     menuLeftButton: {
         borderRadius: '50%',
         width: '2rem',
         height: '2rem',
         text: 'center',
-        marginRight: '1rem'
+        marginLeft: '1rem'
     },
     input: {
         height: '2rem',

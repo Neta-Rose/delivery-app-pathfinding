@@ -2,18 +2,19 @@ import { Grid } from "../../components/Grid";
 import { useGridContext } from "../../hooks/useGridContext";
 import { createGrid } from "../../utils/helpers";
 import { useState } from "react";
-import { AlgorithmName } from "../../types/algorithms";
+import { AlgorithmName, VisualizationSpeeds } from "../../types/algorithms";
 import { Menu } from "../../components/Menu";
 
 export const OrderPage = () => {
     const { changeGrid } = useGridContext();
     const [selectedAlgorithm, setSelectedAlgorithm] = useState<AlgorithmName>(AlgorithmName.DIJKSTRA);
+    const [selectedSpeed, setSelectedSpeed] = useState<string>("medium");
 
     return (
         <div className="container d-flex flex-row justify-content-md-between">
             <div>
                 <Grid />
-                <div className="d-flex flex-row mb-3 mt-3 justify-content-around">
+                <div className="d-flex flex-row mb-3 mt-3 justify-content-between">
                     <div className="dropdown">
                         <button 
                             className="btn btn-secondary dropdown-toggle" 
@@ -22,9 +23,9 @@ export const OrderPage = () => {
                             data-toggle="dropdown" 
                             aria-haspopup="true" 
                             aria-expanded="false"
-                            style={{width: '6rem', textAlign: 'center'}}
+                            style={{width: '10rem', textAlign: 'left'}}
                         >
-                            {selectedAlgorithm}
+                            Algorithm: {selectedAlgorithm}
                         </button>
                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a className="dropdown-item" onClick={
@@ -34,6 +35,7 @@ export const OrderPage = () => {
                                 () => setSelectedAlgorithm(AlgorithmName.ASTAR)
                                 }>{AlgorithmName.ASTAR}</a>
                         </div>
+                        
                     </div>
                     <button 
                         className="btn btn-primary"
@@ -41,9 +43,33 @@ export const OrderPage = () => {
                     >
                         reset
                     </button>    
+                    <div className="dropdown">
+                        <button 
+                            className="btn btn-secondary dropdown-toggle" 
+                            type="button" 
+                            id="dropdownVisualizationSpeedButton" 
+                            data-toggle="dropdown" 
+                            aria-haspopup="true" 
+                            aria-expanded="false"
+                            style={{width: '10rem', textAlign: 'left'}}
+                        >
+                            Speed: {selectedSpeed}
+                        </button>
+                        <div className="dropdown-menu" aria-labelledby="dropdownVisualizationSpeedButton">
+                            {Object.keys(VisualizationSpeeds).map((speed) => (
+                                <a className="dropdown-item" onClick={
+                                    () => setSelectedSpeed(speed)
+                                    }>{speed}</a>
+                            ))}
+                        </div>
+                        
+                    </div>
                 </div>
             </div>
-            <Menu selectedAlgorithm={selectedAlgorithm} />
+            <Menu 
+                selectedAlgorithm={selectedAlgorithm} 
+                visualizationSpeed={selectedSpeed}
+            />
         </div>
     );
 };

@@ -12,9 +12,10 @@ import { placeOrderHelper } from "../../utils/helpers";
 
 interface MenuProps {
     selectedAlgorithm: AlgorithmName;
+    visualizationSpeed: string;
 }
 
-export const Menu: FC<MenuProps> = ({ selectedAlgorithm }) => {
+export const Menu: FC<MenuProps> = ({ selectedAlgorithm, visualizationSpeed }) => {
     const { selectedRestaurant } = useSelectedRestaurant();
     const [menu, setMenu] = useState<MenuApi | null>(null);
     const { orderItems, changeOrderItems } = useOrderDetailsContext();
@@ -34,7 +35,9 @@ export const Menu: FC<MenuProps> = ({ selectedAlgorithm }) => {
                 selectedRestaurant, 
                 orderItems, 
                 selectedAlgorithm, 
-                setSelectedDeliveryMan
+                setSelectedDeliveryMan,
+                visualizationSpeed
+                
             );
         }
     }
