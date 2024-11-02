@@ -18,7 +18,7 @@ export const Grid = () => {
     const handleTileClick = (row: number, column: number) => {
         if(grid) {
             if(grid[row][column].restaurant) {
-                changeSelectedRestaurant(grid[row][column].restaurant)
+                changeSelectedRestaurant(grid[row][column].restaurant!)
             } else {
                 const newGrid: GridInterface = structuredClone(grid);
 
