@@ -23,12 +23,6 @@ app.use('/delivery-mans', deliveryManRouter);
 app.use('/customers', customerRouter);
 app.use('/menus', menuRouter);
 
-app.listen(3030, () => { 
-    logger.info('Server started on port: 3030') 
-});
-
-
-
 app.use(errorHandler);
 
 let isDbInitialized = false;
