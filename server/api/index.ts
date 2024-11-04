@@ -20,13 +20,21 @@ export default async(req:Request, res:Response) => {
 }
 
 
-const startServer = ()=> {
+const startServer = async ()=> {
     dotenv.config();
-    
-    myDataSource
-    .initialize()
-    logger.info(`DB initialized`);
-    // app.get('/', (req, res) => {res.send('Hello World!')});
+    if (!myDataSource.isInitialized) {
+        try {
+            await myDataSource.initialize();
+            console.log("Database connection established.");
+        } catch (error) {
+            console.error("Error during Data Source initialization", error);
+            throw error; 
+        }
+    } else {
+        console.log("Database connection already established.");
+    }
+   
+     app.get('/', (req, res) => {res.send('Hello World!')});
 
     app.use(express.json());
     app.use(cors());
