@@ -46,7 +46,7 @@ if(process.env.NODE_ENV === 'development') {
 
 export default async (req: Request, res: Response) => {
   try {
-    // await initializeDb();
+    initializeDb();
     app(req, res);
   } catch (error) {
     logger.error('Error in handler', error);
