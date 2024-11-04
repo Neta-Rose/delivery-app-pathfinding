@@ -72,6 +72,7 @@ app.use(express.json());
 app.use(cors());
 app.use(loggerMiddleware);
 
+app.get('/', (req, res) => {res.send('Hello World!')});
 app.use('/restaurants', restaurantRouter);
 app.use('/order', orderRouter);
 app.use('/delivery-mans', deliveryManRouter);
