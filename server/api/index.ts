@@ -23,7 +23,7 @@ const startServer = ()=> {
     myDataSource
     .initialize()
     logger.info(`DB initialized`);
-    const app: express.Express = express();
+    app.get('/', (req, res) => {res.send('Hello World!')});
 
     app.use(express.json());
     app.use(cors());
