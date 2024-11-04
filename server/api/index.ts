@@ -51,8 +51,7 @@
 
 // api/index.ts
 
-import express from 'express';
-import { VercelRequest, VercelResponse } from '@vercel/node';
+import express, { Request, Response } from 'express';
 import { myDataSource } from '../src/connection/data-source';
 import { errorHandler } from '../src/middleware/errorHandler.middleware';
 import logger from '../src/logger/logger';
@@ -96,7 +95,7 @@ const initializeDb = async () => {
   }
 };
 
-export default async (req: VercelRequest, res: VercelResponse) => {
+export default async (req: Request, res: Response) => {
   try {
     await initializeDb();
     app(req, res);
