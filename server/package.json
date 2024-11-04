@@ -7,7 +7,7 @@
     "test": "test",
     "build": "tsc",
     "start": "node dist/api/index.js",
-    "dev": "nodemon src/app.ts"
+    "dev": "nodemon api/index.ts"
   },
   "type": "commonjs",
   "author": "neta",
