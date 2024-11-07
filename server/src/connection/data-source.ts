@@ -6,6 +6,12 @@ import path from 'path';
 
 dotenv.config();
 
+const isProduction = process.env.NODE_ENV === 'production';
+
+const entitiesPath = isProduction
+  ? path.join(__dirname, '..', 'entities', 'typeORM', '*.js')
+  : path.join(__dirname, '..', 'entities', 'typeORM', '*.ts');
+
 export const myDataSource: DataSource = new DataSource({
   type: "postgres",
   host: process.env.DB_HOST,
@@ -13,10 +19,10 @@ export const myDataSource: DataSource = new DataSource({
   username: process.env.DB_USER,
   password: String(process.env.DB_PASSWORD),
   database: "postgres",
-  entities: [path.join(__dirname, 'entities', '**/*.entity.{ts,js}')],
+  entities: [entitiesPath],
   logging: false,
   synchronize: false,
   namingStrategy: new SnakeNamingStrategy(),
   schema: "delivery", 
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+  ssl: isProduction ? { rejectUnauthorized: false } : false,
 });
