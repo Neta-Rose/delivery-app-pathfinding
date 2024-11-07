@@ -2,6 +2,10 @@ import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 import dotenv from 'dotenv';
+import { Restaurant } from "../entities/typeORM";
+import { Order } from "../entities/typeORM";
+import { Menu } from "../entities/typeORM";
+import { DeliveryMan } from "../entities/typeORM";
 
 dotenv.config();
 
@@ -12,9 +16,12 @@ export const myDataSource: DataSource = new DataSource({
   username: process.env.DB_USER,
   password: String(process.env.DB_PASSWORD),
   database: "postgres",
-  entities: process.env.NODE_ENV === 'production'
-  ? ['./**/**/**/dist/src/entities/typeORM/*.js']
-  : ['./**/**/src/entities/typeORM/*.ts'], //"./**/entities/typeORM/*.ts"
+  entities: [
+    Restaurant,
+    Order,
+    Menu,
+    DeliveryMan
+  ],
   logging: false,
   synchronize: false,
   namingStrategy: new SnakeNamingStrategy(),
