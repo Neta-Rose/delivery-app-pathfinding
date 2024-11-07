@@ -11,12 +11,16 @@ import { loggerMiddleware } from '../src/middleware/logger.middleware';
 import cors from 'cors';
 
 const app = express();
+const port = process.env.PORT || 3030;
 
 app.use(express.json());
 app.use(cors());
 app.use(loggerMiddleware);
 
-app.get('/', (req, res) => {res.send('Hello World!')});
+app.get('/', (req: Request, res: Response) => {
+    res.send('Welcome to Aura server!');
+});
+
 app.use('/restaurants', restaurantRouter);
 app.use('/order', orderRouter);
 app.use('/delivery-mans', deliveryManRouter);
@@ -25,14 +29,11 @@ app.use('/menus', menuRouter);
 
 app.use(errorHandler);
 
-let isDbInitialized = false;
-
 const initializeDb = async () => {
-  if (!isDbInitialized) {
+  if (!myDataSource.isInitialized) {
     try {
       await myDataSource.initialize();
       logger.info('Database connection established.');
-      isDbInitialized = true;
     } catch (error) {
       logger.error('Error during Data Source initialization', error);
       throw error;
@@ -40,16 +41,28 @@ const initializeDb = async () => {
   }
 };
 
-if(process.env.NODE_ENV === 'development') {  
-    initializeDb(); 
+const startServer = async () => {
+    await initializeDb();
+
+    if(process.env.NODE_ENV === 'production') {
+        app.listen(port, () => {
+            logger.info(`Server started locally on port: ${port}`);
+        });
+    } else {
+        app.listen(port, () => {
+            logger.info(`Server started in production on port: ${port}`);
+        })
+    }
 }
 
 export default async (req: Request, res: Response) => {
   try {
-    initializeDb();
+    if(process.env.NODE_ENV === 'production') {
+        await initializeDb();
+    }
     app(req, res);
   } catch (error) {
     logger.error('Error in handler', error);
-    res.status(500).send('Internal Server Error');
+    res.status(500).send('Couldnt start default vercel function');
   }
 };
