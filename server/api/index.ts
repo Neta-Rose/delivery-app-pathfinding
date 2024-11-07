@@ -17,10 +17,6 @@ app.use(express.json());
 app.use(cors());
 app.use(loggerMiddleware);
 
-app.get('/', (req: Request, res: Response) => {
-    res.send('Hello World');
-});
-
 app.use('/restaurants', restaurantRouter);
 app.use('/order', orderRouter);
 app.use('/delivery-mans', deliveryManRouter);
@@ -41,18 +37,10 @@ const initializeDb = async () => {
   }
 };
 
-const startServer = async () => {
-    await initializeDb();
-
-    if(process.env.NODE_ENV === 'production') {
-        app.listen(port, () => {
-            logger.info(`Server started locally on port: ${port}`);
-        });
-    } else {
-        app.listen(port, () => {
-            logger.info(`Server started in production on port: ${port}`);
-        })
-    }
+if(process.env.NODE_ENV !== 'production') {
+    app.listen(port, () => {
+        logger.info(`Server started on port: ${port}`);
+    });
 }
 
 export default async (req: Request, res: Response) => {
