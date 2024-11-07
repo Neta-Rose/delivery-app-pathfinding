@@ -60,7 +60,7 @@ export default async (req: Request, res: Response) => {
     if(process.env.NODE_ENV === 'production') {
         await initializeDb();
     }
-    // app(req, res);
+    app(req, res);
   } catch (error) {
     logger.error('Error in handler', error);
     res.status(500).send('Couldnt start default vercel function');
