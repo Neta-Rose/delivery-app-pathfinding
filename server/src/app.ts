@@ -10,7 +10,6 @@
   import { loggerMiddleware } from "./middleware/logger.middleware";
   import cors from 'cors';
 
-  
   myDataSource
     .initialize()
     .then(async () => {
