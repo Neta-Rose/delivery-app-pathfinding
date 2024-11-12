@@ -5,7 +5,7 @@ export const useSelectedRestaurant = () => {
     const selectedRestaurantContext = useContext(SelectedRestaurantContext);
 
     if(!selectedRestaurantContext) {
-        throw new Error("cant use grid context outside of grid provider")
+        throw new Error("cant use restaurant context outside of restaurant provider")
     }
 
     return selectedRestaurantContext;

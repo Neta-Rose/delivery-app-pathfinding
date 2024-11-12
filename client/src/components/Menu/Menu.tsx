@@ -6,91 +6,131 @@ import { MenuItem } from "../MenuItem";
 import { useOrderDetailsContext } from "../../hooks/useOrderDetails";
 import { OrderItem } from "../OrderItem";
 import { Point } from "../../types/grid";
-import { AlgorithmName } from "../../types/algorithms";
 import { useGridContext } from "../../hooks/useGridContext";
 import { placeOrderHelper } from "../../utils/helpers";
+import { AlgorithmName } from "../../types/algorithms";
+import { SyncLoader } from "react-spinners";
 
 interface MenuProps {
-    selectedAlgorithm: AlgorithmName;
-    visualizationSpeed: string;
+  selectedAlgorithm: AlgorithmName;
+  visualizationSpeed: string;
+  showModal: boolean;
+  handleCloseModal: () => void;
 }
 
-export const Menu: FC<MenuProps> = ({ selectedAlgorithm, visualizationSpeed }) => {
-    const { selectedRestaurant } = useSelectedRestaurant();
-    const [menu, setMenu] = useState<MenuApi | null>(null);
-    const { orderItems, changeOrderItems } = useOrderDetailsContext();
-    const { grid, changeGrid } = useGridContext();
-    const [, setSelectedDeliveryMan] = useState<null | Point>(null);
+export const Menu: FC<MenuProps> = ({
+  selectedAlgorithm,
+  visualizationSpeed,
+  showModal,
+  handleCloseModal,
+}) => {
+  const { selectedRestaurant } = useSelectedRestaurant();
+  const [menu, setMenu] = useState<MenuApi | null>(null);
+  const { orderItems, changeOrderItems } = useOrderDetailsContext();
+  const { grid, changeGrid } = useGridContext();
+  const [, setSelectedDeliveryMan] = useState<null | Point>(null);
 
-    const placeOrderOnClick = () => {
-        if(orderItems!.length <= 0) {
-            alert('Menu is empty!');
-            return;
-        }
-
-        if(grid && selectedRestaurant && orderItems) {
-            placeOrderHelper(
-                grid, 
-                changeGrid, 
-                selectedRestaurant, 
-                orderItems, 
-                selectedAlgorithm, 
-                setSelectedDeliveryMan,
-                visualizationSpeed
-                
-            );
-        }
+  const placeOrderOnClick = () => {
+    if (orderItems!.length <= 0) {
+      alert("Menu is empty!");
+      return;
     }
 
-    const fetchMenu = async (restaurantId: number) => {
-        const menu: MenuApi = await api.menus().getMenuByRestaurantId(restaurantId);
-        setMenu(menu);
+    if (grid && selectedRestaurant && orderItems) {
+      placeOrderHelper(
+        grid,
+        changeGrid,
+        selectedRestaurant,
+        orderItems,
+        selectedAlgorithm,
+        setSelectedDeliveryMan,
+        visualizationSpeed
+      );
     }
-    
-    useEffect(() => {  
-        if(selectedRestaurant) fetchMenu(selectedRestaurant!.id);
-        changeOrderItems([]);
-    }, [selectedRestaurant]);
+  };
 
-    const styles = {
-        menu: {
-            marginTop: '1rem',
-            width: '20rem',
-            backgroundColor: '#d6d6d6',
-            padding: '8px',
-            borderRadius: '5px',
-        },
-        description: {
-            width: '13rem',
-        },
-        menuButtons: {
-            borderRadius: '50%',
-            width: '2rem',
-            height: '2rem',
-            text: 'center',
-            margin: '1rem'
-        }
-    }
+  const fetchMenu = async (restaurantId: number) => {
+    const menu: MenuApi = await api.menus().getMenuByRestaurantId(restaurantId);
+    setMenu(menu);
+  };
 
-    return (
-        <div>
-            {selectedRestaurant ? 
-                <div style={styles.menu} className="d-flex flex-column justify-content-md-center">
-                    <h1 className="mb-3 text-center border-bottom border-secondary">{menu?.name}</h1>
-                    {menu?.items.map((item, index) => ( <MenuItem key={`item-${index}`} item={item}/> ))}
-                    {orderItems?.map((orderItem, index) => ( <OrderItem key={`order-item-${index}`} orderItem={orderItem} />))}
-                    <div className="d-flex flex-row justify-content-between mt-2">
-                        <button onClick={() => placeOrderOnClick()} className="btn btn-success">Order</button>
-                        <button onClick={() => changeOrderItems([])} className="btn btn-danger">Clear All</button>
-                    </div>
-                </div> 
-                : 
-                <h4>
-                    No Restaurant Was Chosen 
-                </h4>
+  useEffect(() => {
+    if (selectedRestaurant) fetchMenu(selectedRestaurant!.id);
+    changeOrderItems([]);
+  }, [selectedRestaurant]);
+
+  return (
+    <div
+      className={`modal fade ${showModal ? "show d-block" : ""}`}
+      tabIndex={-1}
+      role="dialog"
+      aria-labelledby="menuModalLabel"
+      aria-hidden={!showModal}
+      style={{ backgroundColor: showModal ? "rgba(0,0,0,0.5)" : "transparent" }}
+    >
+      <div className="modal-dialog modal-dialog-centered" role="document">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title" id="menuModalLabel">
+              {menu?.name}
+            </h5>
+            <button
+              type="button"
+              className="close"
+              onClick={() => {
+                handleCloseModal();
+                setMenu(null);
+              }}
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div className="modal-body">
+            {menu ? (
+                selectedRestaurant ? (
+                    <>
+                      {menu?.items.map((item, index) => (
+                        <MenuItem key={`item-${index}`} item={item} />
+                      ))}
+                      {orderItems?.map((orderItem, index) => (
+                        <OrderItem key={`order-item-${index}`} orderItem={orderItem} />
+                      ))}
+                    </>
+                  ) : (
+                    <h4>No Restaurant Was Chosen</h4>
+                  )
+            ) : (
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                    <SyncLoader />
+                </div>
+            )}
+          </div>
+          <div className="modal-footer">
+            <button onClick={() => {
+                placeOrderOnClick();
+                handleCloseModal();
+                setMenu(null);
+            }} className="btn btn-success">
+              Order
+            </button>
+            <button onClick={() => changeOrderItems([])} className="btn btn-danger">
+              Clear All
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => {
+                handleCloseModal();
+                setMenu(null);
+              }
             }
+            >
+              Close
+            </button>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
-
-
