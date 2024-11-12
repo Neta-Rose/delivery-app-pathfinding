@@ -1,47 +1,89 @@
 .point {
     height: 2.5rex;
     width: 2.5rex;
-}
-
-.empty:hover {
+    object-fit: contain;
+  }
+  
+  .border {
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+  
+  .empty {
+    background-color: rgb(255, 255, 255);
+    transition: background-color 0.1s linear;
+  }
+  
+  .empty:hover {
     background-color: rgb(211, 217, 219);
-    transition: background-color 100ms linear;
-}
-
-.empty:active, .wall:active {
+    transition: background-color 0.1s linear;
+  }
+  
+  .empty:active {
     background-color: rgb(48, 48, 48);
-}
-
-.user {
+  }
+  
+  .user {
     background-color: rgb(111, 167, 111);
-}
-
-.restaurant {
+    position: relative;
+  }
+  
+  .restaurant {
     background-color: rgb(175, 175, 255);
-}
-
-.selected-restaurant {
+    position: relative;
+  }
+  
+  .selected-restaurant {
     background-color: rgb(73, 73, 248);
-}
-
-.deliveryMan {
+    position: relative;
+  }
+  
+  .deliveryMan {
     background-color: rgb(255, 169, 169);
-}
-
-.wall {
+    position: relative;
+  }
+  
+  .wall {
     background-color: rgb(75, 75, 75);
-}
-
-.visited {
+    position: relative;
+  }
+  
+  .visited {
     background-color: rgb(163, 72, 248);
-    -webkit-transition: background-color 500ms linear;
-    -ms-transition: background-color 500ms linear;
-    transition: background-color 100ms linear;
-}
-
-.path {
+    transition: background-color 0.5s linear;
+  }
+  
+  .path {
     background-color: rgb(101, 190, 218);
-    -webkit-transition: background-color 500ms linear;
-    -ms-transition: background-color 500ms linear;
-    transition: background-color 100ms linear;
-}
+    transition: background-color 0.5s linear;
+  }
+  
+  .wall:active {
+    background-color: rgb(48, 48, 48);
+  }
+  
+  .dragging-wall {
+    background-color: rgba(75, 75, 75, 0.7);
+    transition: background-color 0.2s ease;
+  }
+  
+  .dragging-empty {
+    background-color: rgba(255, 255, 255, 0.7);
+    transition: background-color 0.2s ease;
+  }
+  
+  .tile {
+    user-select: none;
+  }
+  
+  .tile {
+    transition: background-color 0.2s ease;
+  }
+  
+  img.point {
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+  }
+  

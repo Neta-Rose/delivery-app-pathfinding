@@ -1,7 +1,27 @@
-body {
+/* body {
   font-family: "heebo";
   background-image: url("./assets/background.jpg");
   background-size: cover;
   height: 100%;
   width: 100%;
+} */
+ 
+.body {
+  padding-top: 56px;
+}
+
+.modal {
+  display: none;
+}
+
+.modal.show {
+  display: block;
+}
+
+.modal-backdrop {
+  display: none;
+}
+
+.modal-backdrop.show {
+  display: block;
 }
