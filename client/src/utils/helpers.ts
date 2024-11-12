@@ -4,6 +4,7 @@ import { CustomerApi, DeliveryManApi, RestaurantApi } from "../types/api";
 import { itemDetailsInterface } from "../types/order";
 import { pathResponse } from "../types/response";
 import { AlgorithmName, VisualizationSpeeds } from "../types/algorithms";
+// import swal from "sweetalert";
 
 export const placeOrderHelper = async (
     grid: GridInterface,
@@ -91,7 +92,16 @@ export const placeOrderHelper = async (
         grid![response.userPath[index][0]][response.userPath[index][1]].deliveryMan = undefined;
         changeGrid(newGrid);
     }
+
+    // swal({
+    //     title: "Order Completed!",
+    //     text: "Your order has been delivered.",
+    //     icon: "success",
+    //     timer: 2000,
+    // });
+
     await sleep(500);
+    
     changeGrid(createGrid());
 }
 

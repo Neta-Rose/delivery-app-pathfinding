@@ -26,3 +26,12 @@
 .navbar-toggler-icon {
     background-color: #007bff; /* Change color of the toggler icon */
 }
+
+.navbar .dropdown-menu {
+    min-width: 12rem;
+  }
+
+  .navbar .btn {
+    white-space: nowrap;
+  }
+  
