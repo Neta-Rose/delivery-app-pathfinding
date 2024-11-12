@@ -1,0 +1,48 @@
+.sidebar {
+    width: 250px;
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-right: 1px solid #dee2e6;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  
+  .sidebar-title {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #343a40;
+  }
+  
+  .restaurant-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .restaurant-item {
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .restaurant-item:hover {
+    background-color: #e2e6ea;
+  }
+  
+  .restaurant-item.active {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .restaurant-name {
+    font-weight: bold;
+  }
+  
+  .restaurant-location {
+    display: block;
+    font-size: 0.9rem;
+    color: #6c757d;
+  }
+  
