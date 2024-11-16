@@ -1,30 +1,30 @@
 .navbar {
-    border-bottom: 2px solid rgba(0, 123, 255, 0.2); /* Light border at the bottom */
+    border-bottom: 2px solid rgba(0, 123, 255, 0.2);
 }
 
 .nav-link {
     position: relative;
     transition: color 0.3s ease, background-color 0.3s ease;
-    padding: 10px 15px; /* Increased padding for better touch area */
-    border-radius: 5px; /* Rounded corners for links */
+    padding: 10px 15px;
+    border-radius: 5px;
 }
 
 .nav-link:hover {
-    background-color: rgba(0, 123, 255, 0.1); /* Light hover background */
-    color: #007bff; /* Change to primary color on hover */
+    background-color: rgba(0, 123, 255, 0.1);
+    color: #007bff;
 }
 
 .active {
-    background-color: rgba(0, 123, 255, 0.2); /* Active link background */
-    color: #0056b3; /* Darker color for active state */
+    background-color: rgba(0, 123, 255, 0.2);
+    color: #0056b3;
 }
 
 .navbar-toggler {
-    border: none; /* Remove default border */
+    border: none;
 }
 
 .navbar-toggler-icon {
-    background-color: #007bff; /* Change color of the toggler icon */
+    background-color: #007bff;
 }
 
 .navbar .dropdown-menu {

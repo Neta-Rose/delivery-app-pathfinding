@@ -6,6 +6,94 @@ import { pathResponse } from "../types/response";
 import { AlgorithmName, VisualizationSpeeds } from "../types/algorithms";
 // import swal from "sweetalert";
 
+export const handleRecursiveDivisionWalls = (
+    grid: GridInterface,
+    changeGrid: (grid: GridInterface) => void
+) => {
+    const gridClone = structuredClone(grid);
+    const numRows = gridClone.length;
+    const numCols = gridClone[0].length;
+
+    for (let row = 0; row < numRows; row++) {
+        for (let col = 0; col < numCols; col++) {
+            gridClone[row][col].isWall = false;
+        }
+    }
+
+    for (let row = 0; row < numRows; row++) {
+        gridClone[row][0].isWall = true;
+        gridClone[row][numCols - 1].isWall = true;
+    }
+    for (let col = 0; col < numCols; col++) {
+        gridClone[0][col].isWall = true;
+        gridClone[numRows - 1][col].isWall = true;
+    }
+
+    const divide = (x: number, y: number, width: number, height: number) => {
+        if (width < 3 || height < 3) {
+            return;
+        }
+
+        const horizontal = width < height
+            ? true
+            : height < width
+                ? false
+                : Math.random() < 0.5;
+
+        if (horizontal) {
+            const wallRow = y + Math.floor(Math.random() * (height - 2)) + 1;
+
+            for (let col = x; col < x + width; col++) {
+                if (!gridClone[wallRow][col].deliveryMan &&
+                    !gridClone[wallRow][col].restaurant &&
+                    !gridClone[wallRow][col].user) {
+                    gridClone[wallRow][col].isWall = true;
+                }
+            }
+
+            const passageCol = x + Math.floor(Math.random() * width);
+            gridClone[wallRow][passageCol].isWall = false;
+
+            divide(x, y, width, wallRow - y);
+            divide(x, wallRow + 1, width, y + height - wallRow - 1);
+        } else {
+            const wallCol = x + Math.floor(Math.random() * (width - 2)) + 1;
+
+            for (let row = y; row < y + height; row++) {
+                if (!gridClone[row][wallCol].deliveryMan &&
+                    !gridClone[row][wallCol].restaurant &&
+                    !gridClone[row][wallCol].user) {
+                    gridClone[row][wallCol].isWall = true;
+                }
+            }
+
+            const passageRow = y + Math.floor(Math.random() * height);
+            gridClone[passageRow][wallCol].isWall = false;
+
+            divide(x, y, wallCol - x, height);
+            divide(wallCol + 1, y, x + width - wallCol - 1, height);
+        }
+    };
+
+    divide(1, 1, numCols - 2, numRows - 2);
+
+    changeGrid(gridClone);
+};
+
+export const handleRandomWalls = (
+    grid: GridInterface,
+    changeGrid: (grid: GridInterface) => void
+) => {
+    const gridClone = structuredClone(grid);
+    const newGrid = gridClone!.map((row) =>
+        row.map((tile) => ({
+        ...tile,
+        isWall: Math.random() < 0.3 && !tile.deliveryMan && !tile.restaurant && !tile.user,
+        }))
+    );
+    changeGrid(newGrid);
+}
+
 export const placeOrderHelper = async (
     grid: GridInterface,
     changeGrid: (grid: GridInterface) => void,

@@ -104,8 +104,8 @@ INSERT INTO delivery.restaurants (name, phone, location, menu_id) VALUES
 ('Sunrise Diner', '123-456-7890', POINT(10, 10), 1),
 ('City Bistro', '098-765-4321', POINT(10, 20), 2),
 ('Evening Eats', '555-555-5555', POINT(3, 13), 3),
-('Kids Corner', '222-333-4444', POINT(0, 26), 4),
-('Sweet Treats', '111-222-3333', POINT(0, 0), 5);
+('Kids Corner', '222-333-4444', POINT(1, 26), 4),
+('Sweet Treats', '111-222-3333', POINT(1, 1), 5);
 
 INSERT INTO delivery.person (name, location)
 VALUES

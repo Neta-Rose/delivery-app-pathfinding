@@ -2,13 +2,13 @@ import { NavLink } from "react-router-dom";
 import { Page, pages } from "../../router";
 import { useSettingsContext } from "../../context/SettingsContext/SettingsContext";
 import { useGridContext } from "../../hooks/useGridContext";
-import { createGrid } from "../../utils/helpers";
+import { createGrid, handleRandomWalls, handleRecursiveDivisionWalls } from "../../utils/helpers";
 import { AlgorithmName, VisualizationSpeeds } from "../../types/algorithms";
 import "./Navbar.css";
 
 export const Navbar = () => {
   const { selectedAlgorithm, setSelectedAlgorithm, selectedSpeed, setSelectedSpeed } = useSettingsContext();
-  const { changeGrid } = useGridContext();
+  const { changeGrid, grid } = useGridContext();
 
   const handleReset = () => {
     changeGrid(createGrid());
@@ -71,6 +71,34 @@ export const Navbar = () => {
                 onClick={() => setSelectedAlgorithm(AlgorithmName.ASTAR)}
               >
                 {AlgorithmName.ASTAR}
+              </button>
+            </div>
+          </div>
+
+          <div className="dropdown mr-3">
+            <button
+              className="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="dropdownAlgorithmButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              style={{ width: "12rem", textAlign: "left" }}
+            >
+              Maze Type:
+            </button>
+            <div className="dropdown-menu" aria-labelledby="dropdownAlgorithmButton">
+              <button
+                className="dropdown-item"
+                onClick={() => handleRandomWalls(grid!, changeGrid)}
+              >
+                Random Walls
+              </button>
+              <button
+                className="dropdown-item"
+                onClick={() => handleRecursiveDivisionWalls(grid!, changeGrid)}
+              >
+                Option 2
               </button>
             </div>
           </div>
