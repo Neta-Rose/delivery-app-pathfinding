@@ -11,8 +11,8 @@ interface SettingsContextType {
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
 
 export const SettingsProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [selectedAlgorithm, setSelectedAlgorithm] = useState<AlgorithmName>(AlgorithmName.DIJKSTRA);
-  const [selectedSpeed, setSelectedSpeed] = useState<keyof typeof VisualizationSpeeds>("medium");
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState<AlgorithmName>(AlgorithmName.ASTAR);
+  const [selectedSpeed, setSelectedSpeed] = useState<keyof typeof VisualizationSpeeds>("fast");
 
   return (
     <SettingsContext.Provider

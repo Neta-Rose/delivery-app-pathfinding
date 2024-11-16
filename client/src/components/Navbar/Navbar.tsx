@@ -98,7 +98,7 @@ export const Navbar = () => {
                 className="dropdown-item"
                 onClick={() => handleRecursiveDivisionWalls(grid!, changeGrid)}
               >
-                Option 2
+                Recursive Division
               </button>
             </div>
           </div>
